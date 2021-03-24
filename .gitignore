@@ -4,6 +4,7 @@
 *.zip
 *.tar
 *.gz
+*.sql
 .htaccess
 .DS_Store
 .idea/*
