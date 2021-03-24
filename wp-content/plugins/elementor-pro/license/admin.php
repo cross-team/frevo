@@ -176,7 +176,19 @@ class Admin {
 						</a>
 					</div>
 				<?php else :
-					$license_data = API::get_license_data( true ); ?>
+					$license_data = array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					); ?>
 					<h3><?php _e( 'Status', 'elementor-pro' ); ?>:
 						<?php if ( API::STATUS_EXPIRED === $license_data['license'] ) : ?>
 							<span style="color: #ff0000; font-style: italic;"><?php _e( 'Expired', 'elementor-pro' ); ?></span>

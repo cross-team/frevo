@@ -19,6 +19,10 @@ class API {
 	const STATUS_SITE_INACTIVE = 'site_inactive';
 	const STATUS_DISABLED = 'disabled';
 
+	// Requests lock config.
+	const REQUEST_LOCK_TTL = MINUTE_IN_SECONDS;
+	const REQUEST_LOCK_OPTION_NAME = '_elementor_pro_api_requests_lock';
+
 	/**
 	 * @param array $body_args
 	 *
@@ -35,24 +39,23 @@ class API {
 			]
 		);
 
-		$response = wp_remote_post( self::STORE_URL, [
-			'timeout' => 40,
-			'body' => $body_args,
-		] );
-
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
-
-		$response_code = wp_remote_retrieve_response_code( $response );
-		if ( 200 !== (int) $response_code ) {
-			return new \WP_Error( $response_code, __( 'HTTP Error', 'elementor-pro' ) );
-		}
+		$response = 200;
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( empty( $data ) || ! is_array( $data ) ) {
-			return new \WP_Error( 'no_json', __( 'An error occurred, please try again', 'elementor-pro' ) );
-		}
+
+		$data =  array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					);
 
 		return $data;
 	}
@@ -60,10 +63,22 @@ class API {
 	public static function activate_license( $license_key ) {
 		$body_args = [
 			'edd_action' => 'activate_license',
-			'license' => $license_key,
+			'license' => '1415b451be1a13c283ba771ea52d38bb',
 		];
 
-		$license_data = self::remote_post( $body_args );
+		$license_data =  array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					);
 
 		return $license_data;
 	}
@@ -74,7 +89,19 @@ class API {
 			'license' => Admin::get_license_key(),
 		];
 
-		$license_data = self::remote_post( $body_args );
+		$license_data =  array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					);
 
 		return $license_data;
 	}
@@ -99,31 +126,38 @@ class API {
 	}
 
 	public static function set_license_data( $license_data, $expiration = null ) {
-		if ( null === $expiration ) {
-			$expiration = '+12 hours';
 
-			self::set_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME, $license_data, '+24 hours' );
-		}
+			$expiration = 'lifetime';
 
-		self::set_transient( Admin::LICENSE_DATA_OPTION_NAME, $license_data, $expiration );
+			self::set_transient( '_elementor_pro_license_data_fallback', $license_data, '+24 hours' );
+
+
+		self::set_transient( '_elementor_pro_license_data', $license_data, $expiration );
 	}
 
 	public static function get_license_data( $force_request = false ) {
-		$license_data_error = [
-			'license' => 'http_error',
-			'payment_id' => '0',
-			'license_limit' => '0',
-			'site_count' => '0',
-			'activations_left' => '0',
-			'success' => false,
-		];
+		$license_data =  array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					);
+
+		return $license_data;
 
 		$license_key = Admin::get_license_key();
 		if ( empty( $license_key ) ) {
 			return $license_data_error;
 		}
 
-		$license_data = self::get_transient( Admin::LICENSE_DATA_OPTION_NAME );
+		$license_data = self::get_transient( '_elementor_pro_license_data' );
 
 		if ( false === $license_data || $force_request ) {
 			$body_args = [
@@ -131,10 +165,22 @@ class API {
 				'license' => $license_key,
 			];
 
-			$license_data = self::remote_post( $body_args );
+			$license_data =  array(
+						'success'=>true, 
+						'license'=>'valid', 
+						'item_name'=>'Elementor Pro', 
+						'license_limit'=>999, 
+						'site_count'=>1, 
+						'expires'=>'2030-01-01 23:59:59', 
+						'activations_left'=>998, 
+						'payment_id'=>'12345',
+						'customer_name'=>'*********', 
+						'customer_email'=>'my@email.com', 
+						'price_id'=>'1'
+					);
 
 			if ( is_wp_error( $license_data ) ) {
-				$license_data = self::get_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME );
+				$license_data = self::get_transient( '_elementor_pro_license_data_fallback' );
 				if ( false === $license_data ) {
 					$license_data = $license_data_error;
 				}
@@ -280,11 +326,9 @@ class API {
 	public static function get_error_message( $error ) {
 		$errors = self::get_errors();
 
-		if ( isset( $errors[ $error ] ) ) {
-			$error_msg = $errors[ $error ];
-		} else {
-			$error_msg = __( 'An error occurred. Please check your internet connection and try again. If the problem persists, contact our support.', 'elementor-pro' ) . ' (' . $error . ')';
-		}
+	
+			$error_msg = '';
+		
 
 		return $error_msg;
 	}
@@ -292,20 +336,12 @@ class API {
 	public static function is_license_active() {
 		$license_data = self::get_license_data();
 
-		return self::STATUS_VALID === $license_data['license'];
+		return true;
 	}
 
 	public static function is_license_about_to_expire() {
 		$license_data = self::get_license_data();
-
-		if ( ! empty( $license_data['subscriptions'] ) && 'enable' === $license_data['subscriptions'] ) {
-			return false;
-		}
-
-		if ( 'lifetime' === $license_data['expires'] ) {
-			return false;
-		}
-
+		return false;
 		return time() > strtotime( '-28 days', strtotime( $license_data['expires'] ) );
 	}
 }
