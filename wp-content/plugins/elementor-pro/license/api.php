@@ -39,23 +39,24 @@ class API {
 			]
 		);
 
-		$response = 200;
+		$response = wp_remote_post( self::STORE_URL, [
+			'timeout' => 40,
+			'body' => $body_args,
+		] );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$response_code = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== (int) $response_code ) {
+			return new \WP_Error( $response_code, __( 'HTTP Error', 'elementor-pro' ) );
+		}
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-		$data =  array(
-						'success'=>true, 
-						'license'=>'valid', 
-						'item_name'=>'Elementor Pro', 
-						'license_limit'=>999, 
-						'site_count'=>1, 
-						'expires'=>'2030-01-01 23:59:59', 
-						'activations_left'=>998, 
-						'payment_id'=>'12345',
-						'customer_name'=>'*********', 
-						'customer_email'=>'my@email.com', 
-						'price_id'=>'1'
-					);
+		if ( empty( $data ) || ! is_array( $data ) ) {
+			return new \WP_Error( 'no_json', __( 'An error occurred, please try again', 'elementor-pro' ) );
+		}
 
 		return $data;
 	}
@@ -63,22 +64,10 @@ class API {
 	public static function activate_license( $license_key ) {
 		$body_args = [
 			'edd_action' => 'activate_license',
-			'license' => '1415b451be1a13c283ba771ea52d38bb',
+			'license' => $license_key,
 		];
 
-		$license_data =  array(
-						'success'=>true, 
-						'license'=>'valid', 
-						'item_name'=>'Elementor Pro', 
-						'license_limit'=>999, 
-						'site_count'=>1, 
-						'expires'=>'2030-01-01 23:59:59', 
-						'activations_left'=>998, 
-						'payment_id'=>'12345',
-						'customer_name'=>'*********', 
-						'customer_email'=>'my@email.com', 
-						'price_id'=>'1'
-					);
+		$license_data = self::remote_post( $body_args );
 
 		return $license_data;
 	}
@@ -89,19 +78,7 @@ class API {
 			'license' => Admin::get_license_key(),
 		];
 
-		$license_data =  array(
-						'success'=>true, 
-						'license'=>'valid', 
-						'item_name'=>'Elementor Pro', 
-						'license_limit'=>999, 
-						'site_count'=>1, 
-						'expires'=>'2030-01-01 23:59:59', 
-						'activations_left'=>998, 
-						'payment_id'=>'12345',
-						'customer_name'=>'*********', 
-						'customer_email'=>'my@email.com', 
-						'price_id'=>'1'
-					);
+		$license_data = self::remote_post( $body_args );
 
 		return $license_data;
 	}
@@ -126,38 +103,52 @@ class API {
 	}
 
 	public static function set_license_data( $license_data, $expiration = null ) {
+		if ( null === $expiration ) {
+			$expiration = '+12 hours';
 
-			$expiration = 'lifetime';
+			self::set_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME, $license_data, '+24 hours' );
+		}
 
-			self::set_transient( '_elementor_pro_license_data_fallback', $license_data, '+24 hours' );
+		self::set_transient( Admin::LICENSE_DATA_OPTION_NAME, $license_data, $expiration );
+	}
 
+	/**
+	 * Check if another request is in progress.
+	 *
+	 * @param string $name Request name
+	 *
+	 * @return bool
+	 */
+	public static function is_request_running( $name ) {
+		$requests_lock = get_option( self::REQUEST_LOCK_OPTION_NAME, [] );
+		if ( isset( $requests_lock[ $name ] ) ) {
+			if ( $requests_lock[ $name ] > time() - self::REQUEST_LOCK_TTL ) {
+				return true;
+			}
+		}
 
-		self::set_transient( '_elementor_pro_license_data', $license_data, $expiration );
+		$requests_lock[ $name ] = time();
+		update_option( self::REQUEST_LOCK_OPTION_NAME, $requests_lock );
+
+		return false;
 	}
 
 	public static function get_license_data( $force_request = false ) {
-		$license_data =  array(
-						'success'=>true, 
-						'license'=>'valid', 
-						'item_name'=>'Elementor Pro', 
-						'license_limit'=>999, 
-						'site_count'=>1, 
-						'expires'=>'2030-01-01 23:59:59', 
-						'activations_left'=>998, 
-						'payment_id'=>'12345',
-						'customer_name'=>'*********', 
-						'customer_email'=>'my@email.com', 
-						'price_id'=>'1'
-					);
-
-		return $license_data;
+		$license_data_error = [
+			'license' => 'http_error',
+			'payment_id' => '0',
+			'license_limit' => '0',
+			'site_count' => '0',
+			'activations_left' => '0',
+			'success' => false,
+		];
 
 		$license_key = Admin::get_license_key();
 		if ( empty( $license_key ) ) {
 			return $license_data_error;
 		}
 
-		$license_data = self::get_transient( '_elementor_pro_license_data' );
+		$license_data = self::get_transient( Admin::LICENSE_DATA_OPTION_NAME );
 
 		if ( false === $license_data || $force_request ) {
 			$body_args = [
@@ -165,22 +156,14 @@ class API {
 				'license' => $license_key,
 			];
 
-			$license_data =  array(
-						'success'=>true, 
-						'license'=>'valid', 
-						'item_name'=>'Elementor Pro', 
-						'license_limit'=>999, 
-						'site_count'=>1, 
-						'expires'=>'2030-01-01 23:59:59', 
-						'activations_left'=>998, 
-						'payment_id'=>'12345',
-						'customer_name'=>'*********', 
-						'customer_email'=>'my@email.com', 
-						'price_id'=>'1'
-					);
+			if ( self::is_request_running( 'get_license_data' ) ) {
+				return $license_data_error;
+			}
+
+			$license_data = self::remote_post( $body_args );
 
 			if ( is_wp_error( $license_data ) ) {
-				$license_data = self::get_transient( '_elementor_pro_license_data_fallback' );
+				$license_data = self::get_transient( Admin::LICENSE_DATA_FALLBACK_OPTION_NAME );
 				if ( false === $license_data ) {
 					$license_data = $license_data_error;
 				}
@@ -197,7 +180,7 @@ class API {
 	public static function get_version( $force_update = true ) {
 		$cache_key = 'elementor_pro_remote_info_api_data_' . ELEMENTOR_PRO_VERSION;
 
-		$info_data = get_site_transient( $cache_key );
+		$info_data = self::get_transient( $cache_key );
 
 		if ( $force_update || false === $info_data ) {
 			$updater = Admin::get_updater_instance();
@@ -221,9 +204,13 @@ class API {
 				'beta' => 'yes' === get_option( 'elementor_beta', 'no' ),
 			];
 
+			if ( self::is_request_running( 'get_version' ) ) {
+				return new \WP_Error( __( 'Another check is in progress.', 'elementor-pro' ) );
+			}
+
 			$info_data = self::remote_post( $body_args );
 
-			set_site_transient( $cache_key, $info_data, 12 * HOUR_IN_SECONDS );
+			self::set_transient( $cache_key, $info_data );
 		}
 
 		return $info_data;
@@ -326,9 +313,11 @@ class API {
 	public static function get_error_message( $error ) {
 		$errors = self::get_errors();
 
-	
-			$error_msg = '';
-		
+		if ( isset( $errors[ $error ] ) ) {
+			$error_msg = $errors[ $error ];
+		} else {
+			$error_msg = __( 'An error occurred. Please check your internet connection and try again. If the problem persists, contact our support.', 'elementor-pro' ) . ' (' . $error . ')';
+		}
 
 		return $error_msg;
 	}
@@ -336,12 +325,20 @@ class API {
 	public static function is_license_active() {
 		$license_data = self::get_license_data();
 
-		return true;
+		return self::STATUS_VALID === $license_data['license'];
 	}
 
 	public static function is_license_about_to_expire() {
 		$license_data = self::get_license_data();
-		return false;
+
+		if ( ! empty( $license_data['subscriptions'] ) && 'enable' === $license_data['subscriptions'] ) {
+			return false;
+		}
+
+		if ( 'lifetime' === $license_data['expires'] ) {
+			return false;
+		}
+
 		return time() > strtotime( '-28 days', strtotime( $license_data['expires'] ) );
 	}
 }
