@@ -1,3 +1,4 @@
+nginx.conf
 *.log
 *wp.dompdf.config.php
 *configCache.php
