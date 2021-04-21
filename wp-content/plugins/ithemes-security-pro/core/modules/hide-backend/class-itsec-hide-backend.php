@@ -21,7 +21,7 @@ class ITSEC_Hide_Backend {
 			return;
 		}
 
-		add_action( 'itsec_initialized', array( $this, 'handle_specific_page_requests' ), 1000 );
+		add_action( 'setup_theme', array( $this, 'handle_specific_page_requests' ) );
 		add_action( 'signup_hidden_fields', array( $this, 'add_token_to_registration_form' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'login_enqueue' ) );
 
@@ -121,7 +121,7 @@ class ITSEC_Hide_Backend {
 	 * @return void
 	 */
 	private function handle_login_alias() {
-		if ( isset( $_GET['action'] ) && $_GET['action'] === trim( $this->settings['post_logout_slug'] ) ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] === trim( $this->settings['post_logout_slug'] ) ) {
 			// I'm not sure if this feature is still needed or if anyone still uses it. - Chris
 			do_action( 'itsec_custom_login_slug' );
 		}
@@ -135,7 +135,7 @@ class ITSEC_Hide_Backend {
 	 * @return void
 	 */
 	private function handle_canonical_login_page() {
-		$action = isset( $_GET['action'] ) ? $_GET['action'] : '';
+		$action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
 
 		if ( 'postpass' === $action ) {
 			return;
@@ -292,7 +292,7 @@ class ITSEC_Hide_Backend {
 				$url = $this->add_token_to_url( $url, 'register' );
 			} elseif ( false !== strpos( $path, 'action=rp' ) ) {
 				$url = $this->add_token_to_url( $url, 'login' );
-			} elseif ( 'wp-login.php' !== $request_path || empty( $_GET['action'] ) || 'register' !== $_GET['action'] ) {
+			} elseif ( 'wp-login.php' !== $request_path || empty( $_REQUEST['action'] ) || 'register' !== $_REQUEST['action'] ) {
 				$url = $this->add_token_to_url( $url, 'login' );
 			}
 		} elseif ( 'wp-signup.php' === $clean_path && 'wp-signup.php' !== $this->settings['register'] ) {
@@ -383,7 +383,7 @@ class ITSEC_Hide_Backend {
 	 * lead to a 404 page.
 	 */
 	public function login_enqueue() {
-		if ( ! empty( $_GET['action'] ) && 'register' === $_GET['action'] ) {
+		if ( ! empty( $_REQUEST['action'] ) && 'register' === $_REQUEST['action'] ) {
 			wp_enqueue_style( 'itsec-hide-backend-login-page', plugins_url( 'css/login-page.css', __FILE__ ) );
 		}
 	}
