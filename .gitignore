@@ -1,5 +1,6 @@
 dev_to_local_db.sh
 uat_to_local_db.sh
+uat_to_prod.sh
 nginx.conf
 *.log
 *wp.dompdf.config.php
