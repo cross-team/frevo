@@ -744,6 +744,12 @@ final class ITSEC_Lib {
 	 */
 	public static function get_lock( $name, $expires_in = 30 ) {
 
+		$pre_check = apply_filters( 'itsec_pre_get_lock', null, $name, $expires_in );
+
+		if ( null !== $pre_check ) {
+			return $pre_check;
+		}
+
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$main_options = $wpdb->base_prefix . 'options';
@@ -813,6 +819,11 @@ final class ITSEC_Lib {
 	 * @param string $name The lock name.
 	 */
 	public static function release_lock( $name ) {
+		$pre_check = apply_filters( 'itsec_pre_release_lock', null, $name );
+
+		if ( null !== $pre_check ) {
+			return;
+		}
 
 		$lock = "itsec-lock-{$name}";
 

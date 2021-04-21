@@ -1468,3 +1468,7 @@
 	Bug Fix: Tweak checkbox styles.
 	Security Improvement: To improve server compatibility, requests to the iThemes updater servers would automatically downgrade from https to http when https connections failed. This update removes the automatic downgrade. If your server cannot make outbound https connections, you can re-enable the downgrade capability by adding the following define in your site's wp-config.php file:
 		define( 'ITHEMES_ALLOW_HTTP_FALLBACK', true );
+6.8.4 - 2021-04-13 - Timothy Jacobs
+	Security: Fix Hide Backend Bypass, thanks to Julio Potier for reporting the issue.
+	Tweak: Add filters to short-circuit lock APIs.
+	Bug Fix: Prevent wp_no_robots deprecation warning on WordPress 5.7.

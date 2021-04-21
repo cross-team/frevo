@@ -1,11 +1,11 @@
-# Copyright (C) 2020 iThemes Security Pro
+# Copyright (C) 2021 iThemes Security Pro
 # This file is distributed under the same license as the iThemes Security Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: iThemes Security Pro 6.8.3\n"
+"Project-Id-Version: iThemes Security Pro 6.8.4\n"
 "Report-Msgid-Bugs-To: http://ithemes.com/support/\n"
-"POT-Creation-Date: 2020-12-16 21:35:48+00:00\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2021-04-13 19:26:18+00:00\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -325,37 +325,37 @@ msgstr ""
 msgid "The log entry migration failed. Reload the page to try again."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:76 core/lib.php:1187
+#: core/admin-pages/page-logs.php:76 core/lib.php:1198
 #: pro/grade-report/admin-page/page.php:54
 msgid "An \"invalid format\" error prevented the request from completing as expected. The format of data returned could not be recognized. This could be due to a plugin/theme conflict or a server configuration issue."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:78 core/lib.php:1188
+#: core/admin-pages/page-logs.php:78 core/lib.php:1199
 #: pro/grade-report/admin-page/page.php:56
 msgid "A \"request forbidden\" error prevented the request from completing as expected. The server returned a 403 status code, indicating that the server configuration is prohibiting this request. This could be due to a plugin/theme conflict or a server configuration issue. Please try refreshing the page and trying again. If the request continues to fail, you may have to alter plugin settings or server configuration that could account for this AJAX request being blocked."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:80 core/lib.php:1189
+#: core/admin-pages/page-logs.php:80 core/lib.php:1200
 #: pro/grade-report/admin-page/page.php:58
 msgid "A \"not found\" error prevented the request from completing as expected. The server returned a 404 status code, indicating that the server was unable to find the requested admin-ajax.php file. This could be due to a plugin/theme conflict, a server configuration issue, or an incomplete WordPress installation. Please try refreshing the page and trying again. If the request continues to fail, you may have to alter plugin settings, alter server configurations, or reinstall WordPress."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:82 core/lib.php:1190
+#: core/admin-pages/page-logs.php:82 core/lib.php:1201
 #: pro/grade-report/admin-page/page.php:60
 msgid "A \"internal server\" error prevented the request from completing as expected. The server returned a 500 status code, indicating that the server was unable to complete the request due to a fatal PHP error or a server problem. This could be due to a plugin/theme conflict, a server configuration issue, a temporary hosting issue, or invalid custom PHP modifications. Please check your server's error logs for details about the source of the error and contact your hosting company for assistance if required."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:84 core/lib.php:1191
+#: core/admin-pages/page-logs.php:84 core/lib.php:1202
 #: pro/grade-report/admin-page/page.php:62
 msgid "An unknown error prevented the request from completing as expected. This could be due to a plugin/theme conflict or a server configuration issue."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:86 core/lib.php:1192
+#: core/admin-pages/page-logs.php:86 core/lib.php:1203
 #: pro/grade-report/admin-page/page.php:64
 msgid "A timeout error prevented the request from completing as expected. The site took too long to respond. This could be due to a plugin/theme conflict or a server configuration issue."
 msgstr ""
 
-#: core/admin-pages/page-logs.php:88 core/lib.php:1193
+#: core/admin-pages/page-logs.php:88 core/lib.php:1204
 #: pro/grade-report/admin-page/page.php:66
 msgid "A parser error prevented the request from completing as expected. The site sent a response that jQuery could not process. This could be due to a plugin/theme conflict or a server configuration issue."
 msgstr ""
@@ -1503,11 +1503,11 @@ msgstr ""
 msgid "No geolocator found a valid location."
 msgstr ""
 
-#: core/lib/includes/function.login-header.php:80
+#: core/lib/includes/function.login-header.php:85
 msgid "https://wordpress.org/"
 msgstr ""
 
-#: core/lib/includes/function.login-header.php:81
+#: core/lib/includes/function.login-header.php:86
 msgid "Powered by WordPress"
 msgstr ""
 
@@ -1741,11 +1741,11 @@ msgstr ""
 msgid "An invalid sanitize type of \"%1$s\" was received for the %2$s input."
 msgstr ""
 
-#: core/lib.php:2065 pro/wp-cli/settings.php:239
+#: core/lib.php:2076 pro/wp-cli/settings.php:239
 msgid "Failed to update settings."
 msgstr ""
 
-#: core/lib.php:2230
+#: core/lib.php:2241
 msgid "Must be running at least version %s of iThemes Security."
 msgstr ""
 
@@ -1761,127 +1761,127 @@ msgstr ""
 msgid "Error."
 msgstr ""
 
-#: core/lockout.php:834
+#: core/lockout.php:838
 msgid "About Lockouts"
 msgstr ""
 
-#: core/lockout.php:836
+#: core/lockout.php:840
 msgid "Your lockout settings can be configured in <a href=\"%s\" data-module-link=\"global\">Global Settings</a>."
 msgstr ""
 
-#: core/lockout.php:838
+#: core/lockout.php:842
 msgid "Your current settings are configured as follows:"
 msgstr ""
 
-#: core/lockout.php:840
+#: core/lockout.php:844
 msgid "<strong>Permanently ban:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:840 core/lockout.php:850
+#: core/lockout.php:844 core/lockout.php:854
 msgid "yes"
 msgstr ""
 
-#: core/lockout.php:840 core/lockout.php:850
+#: core/lockout.php:844 core/lockout.php:854
 msgid "no"
 msgstr ""
 
-#: core/lockout.php:842
+#: core/lockout.php:846
 msgid "<strong>Number of lockouts before permanent ban:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:844
+#: core/lockout.php:848
 msgid "<strong>How long lockouts will be remembered for ban:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:846
+#: core/lockout.php:850
 msgid "<strong>Host lockout message:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:848
+#: core/lockout.php:852
 msgid "<strong>User lockout message:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:850
+#: core/lockout.php:854
 msgid "<strong>Is this computer an authorized host:</strong> %s"
 msgstr ""
 
-#: core/lockout.php:1286
+#: core/lockout.php:1290
 msgid "Site Lockouts"
 msgstr ""
 
-#: core/lockout.php:1287
+#: core/lockout.php:1291
 msgid "Various modules send emails to notify you when a user or host is locked out of your website."
 msgstr ""
 
-#: core/lockout.php:1288 core/lockout.php:1360
+#: core/lockout.php:1292 core/lockout.php:1364
 msgid "Site Lockout Notification"
 msgstr ""
 
-#: core/lockout.php:1344
+#: core/lockout.php:1348
 msgid "Permanently"
 msgstr ""
 
-#: core/lockout.php:1364
+#: core/lockout.php:1368
 msgid "Release lockouts from the Active Lockouts section of the settings page."
 msgstr ""
 
-#: core/lockout.php:1365
+#: core/lockout.php:1369
 msgid "Visit Settings Page"
 msgstr ""
 
-#: core/lockout.php:1369
+#: core/lockout.php:1373
 msgid "Release the permanent host ban from Ban Hosts list in the Banned Users section of the settings page."
 msgstr ""
 
-#: core/lockout.php:1370
+#: core/lockout.php:1374
 msgid "Visit Banned Users Settings"
 msgstr ""
 
-#: core/lockout.php:1383
+#: core/lockout.php:1387
 msgid "Lockout"
 msgstr ""
 
-#: core/lockout.php:1386
+#: core/lockout.php:1390
 msgid "Authorized Host Triggered Ban Conditions"
 msgstr ""
 
-#: core/lockout.php:1388
+#: core/lockout.php:1392
 msgid "Host Triggered Ban Conditions"
 msgstr ""
 
-#: core/lockout.php:1390
+#: core/lockout.php:1394
 msgid "Authorized Host Triggered Host Lockout"
 msgstr ""
 
-#: core/lockout.php:1393
+#: core/lockout.php:1397
 msgid "Host Lockout: <code>%s</code>"
 msgstr ""
 
-#: core/lockout.php:1395
+#: core/lockout.php:1399
 msgid "Host Lockout"
 msgstr ""
 
-#: core/lockout.php:1398
+#: core/lockout.php:1402
 msgid "Authorized Host Triggered User Lockout"
 msgstr ""
 
-#: core/lockout.php:1405
+#: core/lockout.php:1409
 msgid "User Lockout: <code>%s</code>"
 msgstr ""
 
-#: core/lockout.php:1407
+#: core/lockout.php:1411
 msgid "User Lockout"
 msgstr ""
 
-#: core/lockout.php:1410
+#: core/lockout.php:1414
 msgid "Authorized Host Triggered Username Lockout"
 msgstr ""
 
-#: core/lockout.php:1413
+#: core/lockout.php:1417
 msgid "Username Lockout: <code>%s</code>"
 msgstr ""
 
-#: core/lockout.php:1415
+#: core/lockout.php:1419
 msgid "Username Lockout"
 msgstr ""
 
@@ -2792,7 +2792,7 @@ msgstr ""
 
 #: core/modules/content-directory/settings-page.php:49
 #: core/modules/database-prefix/settings-page.php:38
-#: core/modules/hide-backend/settings-page.php:62
+#: core/modules/hide-backend/settings-page.php:63
 #: core/modules/salts/settings-page.php:58 core/modules/salts/utilities.php:38
 #: core/modules/salts/validator.php:37
 msgid "The \"Write to Files\" setting is disabled in Global Settings. In order to use this feature, you must enable the \"Write to Files\" setting."
@@ -3979,7 +3979,7 @@ msgstr ""
 
 #: core/modules/hide-backend/labels.php:4
 #: core/modules/hide-backend/settings-page.php:9
-#: core/modules/hide-backend/settings-page.php:68
+#: core/modules/hide-backend/settings-page.php:69
 #: core/modules/hide-backend/validator.php:9
 msgid "Hide Backend"
 msgstr ""
@@ -3996,68 +3996,72 @@ msgstr ""
 msgid "Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:54
+#: core/modules/hide-backend/settings-page.php:44
+msgid "The login page may be exposed by WordPress Core, Plugins, or Themes when printing links to the login page. For example Privacy Request Confirmations or front-end login forms. Hide Backend shouldn't be used as a substitute for Strong Passwords."
+msgstr ""
+
+#: core/modules/hide-backend/settings-page.php:55
 msgid "You must change <a href=\"%s\">WordPress permalinks</a> to a setting other than \"Plain\" in order to use this feature."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:71
+#: core/modules/hide-backend/settings-page.php:72
 msgid "Enable the hide backend feature."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:78
+#: core/modules/hide-backend/settings-page.php:79
 #: core/modules/hide-backend/validator.php:28
 msgid "Login Slug"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:82
+#: core/modules/hide-backend/settings-page.php:83
 msgid "Login URL: %s"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:83
+#: core/modules/hide-backend/settings-page.php:84
 msgid "The login url slug cannot be \"login,\" \"admin,\" \"dashboard,\" or \"wp-login.php\" as these are use by default in WordPress."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:84
+#: core/modules/hide-backend/settings-page.php:85
 msgid "Note: The output is limited to alphanumeric characters, underscore (_) and dash (-). Special characters such as \".\" and \"/\" are not allowed and will be converted in the same manner as a post title. Please review your selection before logging out."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:89
+#: core/modules/hide-backend/settings-page.php:90
 #: core/modules/hide-backend/validator.php:25
 msgid "Register Slug"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:93
+#: core/modules/hide-backend/settings-page.php:94
 msgid "Registration URL: %s"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:98
+#: core/modules/hide-backend/settings-page.php:99
 #: core/modules/hide-backend/validator.php:29
 msgid "Enable Redirection"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:101
+#: core/modules/hide-backend/settings-page.php:102
 msgid "Redirect users to a custom location on your site, instead of throwing a 403 (forbidden) error."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:105
+#: core/modules/hide-backend/settings-page.php:106
 #: core/modules/hide-backend/validator.php:30
 msgid "Redirection Slug"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:109
+#: core/modules/hide-backend/settings-page.php:110
 msgid "Redirect Location: %s"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:110
+#: core/modules/hide-backend/settings-page.php:111
 msgid "The slug to redirect users to when they attempt to access wp-admin while not logged in."
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:114
+#: core/modules/hide-backend/settings-page.php:115
 #: core/modules/hide-backend/validator.php:31
 msgid "Custom Login Action"
 msgstr ""
 
-#: core/modules/hide-backend/settings-page.php:118
+#: core/modules/hide-backend/settings-page.php:119
 msgid "WordPress uses the \"action\" variable to handle many login and logout functions. By default this plugin can handle the normal ones but some plugins and themes may utilize a custom action (such as logging out of a private post). If you need a custom action please enter it here."
 msgstr ""
 
@@ -6580,11 +6584,11 @@ msgstr ""
 msgid "The direction argument must be either \"add\", \"clear\", or \"remove\"."
 msgstr ""
 
-#: core/templates/lockout/lockout.php:15
+#: core/templates/lockout/lockout.php:19
 msgid "Forbidden"
 msgstr ""
 
-#: core/templates/lockout/lockout.php:24
+#: core/templates/lockout/lockout.php:28
 msgid "You have been locked out."
 msgstr ""
 

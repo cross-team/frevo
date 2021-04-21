@@ -41,6 +41,7 @@ final class ITSEC_Hide_Backend_Settings_Page extends ITSEC_Module_Settings_Page 
 
 ?>
 	<p><?php _e( 'Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform.', 'it-l10n-ithemes-security-pro' ); ?></p>
+	<p><?php _e( 'The login page may be exposed by WordPress Core, Plugins, or Themes when printing links to the login page. For example Privacy Request Confirmations or front-end login forms. Hide Backend shouldn\'t be used as a substitute for Strong Passwords.', 'it-l10n-ithemes-security-pro' ) ?></p>
 <?php
 
 	}
