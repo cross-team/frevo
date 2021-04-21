@@ -1,7 +1,13 @@
+<?php
+header("HTTP/1.1 503 Service Temporarily Unavailable");
+header("Status: 503 Service Temporarily Unavailable");
+header("Retry-After: 3600");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SafraPay is Under Maintenance</title>
   <style>
   body {font-family: "Source Sans Pro", sans-serif; font-size: 18px;}
