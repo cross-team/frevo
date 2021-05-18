@@ -1,4 +1,4 @@
-/*! elementor - v3.1.4 - 10-03-2021 */
+/*! elementor - v3.2.3 - 05-05-2021 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["video"],{
 
 /***/ "../assets/dev/js/frontend/handlers/video.js":
@@ -23,13 +23,19 @@ _Object$defineProperty(exports, "__esModule", {
 
 exports.default = void 0;
 
-__webpack_require__(/*! core-js/modules/es7.array.includes */ "../node_modules/core-js/modules/es7.array.includes.js");
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ "../node_modules/@babel/runtime/regenerator/index.js"));
 
-__webpack_require__(/*! core-js/modules/es6.string.includes */ "../node_modules/core-js/modules/es6.string.includes.js");
+__webpack_require__(/*! regenerator-runtime/runtime.js */ "../node_modules/regenerator-runtime/runtime.js");
 
-__webpack_require__(/*! core-js/modules/es6.regexp.replace */ "../node_modules/core-js/modules/es6.regexp.replace.js");
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/asyncToGenerator */ "../node_modules/@babel/runtime-corejs2/helpers/asyncToGenerator.js"));
 
-__webpack_require__(/*! core-js/modules/es6.array.find */ "../node_modules/core-js/modules/es6.array.find.js");
+__webpack_require__(/*! core-js/modules/es7.array.includes.js */ "../node_modules/core-js/modules/es7.array.includes.js");
+
+__webpack_require__(/*! core-js/modules/es6.string.includes.js */ "../node_modules/core-js/modules/es6.string.includes.js");
+
+__webpack_require__(/*! core-js/modules/es6.regexp.replace.js */ "../node_modules/core-js/modules/es6.regexp.replace.js");
+
+__webpack_require__(/*! core-js/modules/es6.array.find.js */ "../node_modules/core-js/modules/es6.array.find.js");
 
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/helpers/classCallCheck */ "../node_modules/@babel/runtime-corejs2/helpers/classCallCheck.js"));
 
@@ -73,11 +79,6 @@ var Video = /*#__PURE__*/function (_elementorModules$fro) {
         $video: this.$element.find(selectors.video),
         $videoIframe: this.$element.find(selectors.videoIframe)
       };
-    }
-  }, {
-    key: "getLightBox",
-    value: function getLightBox() {
-      return elementorFrontend.utils.lightbox;
     }
   }, {
     key: "handleVideo",
@@ -132,14 +133,94 @@ var Video = /*#__PURE__*/function (_elementorModules$fro) {
     }
   }, {
     key: "animateVideo",
-    value: function animateVideo() {
-      this.getLightBox().setEntranceAnimation(this.getCurrentDeviceSetting('lightbox_content_animation'));
-    }
+    value: function () {
+      var _animateVideo = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var lightbox;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return elementorFrontend.utils.lightbox;
+
+              case 2:
+                lightbox = _context.sent;
+                lightbox.setEntranceAnimation(this.getCurrentDeviceSetting('lightbox_content_animation'));
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function animateVideo() {
+        return _animateVideo.apply(this, arguments);
+      }
+
+      return animateVideo;
+    }()
   }, {
     key: "handleAspectRatio",
-    value: function handleAspectRatio() {
-      this.getLightBox().setVideoAspectRatio(this.getElementSettings('aspect_ratio'));
-    }
+    value: function () {
+      var _handleAspectRatio = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var lightbox;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return elementorFrontend.utils.lightbox;
+
+              case 2:
+                lightbox = _context2.sent;
+                lightbox.setVideoAspectRatio(this.getElementSettings('aspect_ratio'));
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function handleAspectRatio() {
+        return _handleAspectRatio.apply(this, arguments);
+      }
+
+      return handleAspectRatio;
+    }()
+  }, {
+    key: "hideLightbox",
+    value: function () {
+      var _hideLightbox = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        var lightbox;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return elementorFrontend.utils.lightbox;
+
+              case 2:
+                lightbox = _context3.sent;
+                lightbox.getModal().hide();
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function hideLightbox() {
+        return _hideLightbox.apply(this, arguments);
+      }
+
+      return hideLightbox;
+    }()
   }, {
     key: "prepareYTVideo",
     value: function prepareYTVideo(YT, onOverlayClick) {
@@ -256,7 +337,7 @@ var Video = /*#__PURE__*/function (_elementorModules$fro) {
       var isLightBoxEnabled = this.getElementSettings('lightbox');
 
       if ('lightbox' === propertyName && !isLightBoxEnabled) {
-        this.getLightBox().getModal().hide();
+        this.hideLightbox();
         return;
       }
 
@@ -404,4 +485,4 @@ __webpack_require__(/*! ./_fix-re-wks */ "../node_modules/core-js/modules/_fix-r
 /***/ })
 
 }]);
-//# sourceMappingURL=video.0b0142741907d3f9479c.bundle.js.map
+//# sourceMappingURL=video.a67431c1becbede4d80c.bundle.js.map
